@@ -1,0 +1,26 @@
+﻿@using Microsoft.Extensions.DependencyInjection;
+@using TestBlazorServer.Roles;
+@using Microsoft.Extensions.DependencyInjection.Extensions
+@inherits OwningComponentBase
+aaa
+
+@code{
+    IRoleAppService roleAppService;
+    protected override void OnInitialized()
+    {
+        roleAppService = base.ScopedServices.GetService<IRoleAppService>();
+    }
+
+    [Abp.Domain.Uow.UnitOfWork]
+    protected override async Task OnInitializedAsync()
+    {
+        await Test2();
+        var items = await roleAppService.GetAllAsync(new Roles.Dto.PagedRoleResultRequestDto { });
+    }
+    [Abp.Domain.Uow.UnitOfWork]
+    public virtual async Task Test2()
+    {
+        var items = await roleAppService.GetAllAsync(new Roles.Dto.PagedRoleResultRequestDto { });
+    
+    }
+}
